@@ -5,7 +5,6 @@ module "cloud_run_main" {
   region = var.region
   env_vars = var.env_vars
   service_account = var.service_account
-  project = var.project_id
 }
 
 module "cloud_run_action" {
@@ -15,5 +14,4 @@ module "cloud_run_action" {
   region = var.region
   env_vars = var.env_vars
   service_account = var.service_account
-  project = var.project_id
 }
