@@ -32,6 +32,8 @@ jobs:
 
       - name: Terraform Init
         run: |
+          pwd
+          ls -l
           cd envs/${{ github.event.inputs.environment }}
           terraform init
 
