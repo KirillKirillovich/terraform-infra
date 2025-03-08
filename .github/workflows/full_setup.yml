@@ -47,7 +47,7 @@ jobs:
               -var="env_vars={\"DATABASE\":\"${{ vars.DATABASE }}\", \"ENVIRONMENT\":\"${{ github.event.inputs.environment }}\"}"
           else
             echo "Running terraform destroy"
-            terraform destroy -auto-approve
+            terraform destroy -auto-approve -input=false
               -var="main_image=${{ vars.MAIN_IMAGE }}" \
               -var="actions_image=${{ vars.ACTION_IMAGE }}" \
               -var="project_id=${{ vars.PROJECT_ID }}" \
