@@ -2,6 +2,7 @@
 resource "google_cloud_run_service" "this" {
   name     = var.name
   location = var.region
+  project = var.project
 
     template {
     spec {
