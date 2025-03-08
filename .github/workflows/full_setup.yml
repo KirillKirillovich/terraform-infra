@@ -45,8 +45,8 @@ jobs:
               -var="database=${{ vars.DATABASE }}" \
               -var="service_account=${{ vars.TERRAFORM_SA_NAME }}" \
               -var="env_vars={\"DATABASE\":\"${{ secrets.DATABASE }}\", \"ENVIRONMENT\":\"${{ github.event.inputs.environment }}\"}"
-          elif [ "${{ github.event.inputs.action }}" == "destroy" ]; then
-            terraform destroy -auto-approve \
+          else
+            terraform destroy -auto-approve
           fi
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform/gcp-key.json
