@@ -2,54 +2,13 @@ name: Full build/destroy
 
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Select the environment'
-        required: true
-        type: choice
-        options:
-          - development
-          - production
-          - stage
-      action:
-        description: 'Select the action (build or destroy)'
-        required: true
-        type: choice
-        options:
-          - build
-          - destroy
+
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init
+      - name: echo
         run: |
-          cd envs/${{ github.event.inputs.environment }}
-          terraform init
-
-      - name: Terraform Apply
-        run: |
-          echo '${{ secrets.GCP_SA_TERRAFORM }}' | tr -d '\r' > gcp-key.json
-          export GOOGLE_APPLICATION_CREDENTIALS="$PWD/gcp-key.json"
-
-          if [ "${{ github.event.inputs.action }}" == "build" ]; then
-            terraform apply -auto-approve \
-              -var="main_image=${{ vars.MAIN_IMAGE }}" \
-              -var="actions_image=${{ vars.ACTION_IMAGE }}" \
-              -var="project_id=${{ vars.PROJECT_ID }}" \
-              -var="database=${{ vars.DATABASE }}" \
-              -var="service_account=${{ vars.TERRAFORM_SA_NAME }}" \
-              -var="env_vars={\"DATABASE\":\"${{ secrets.DATABASE }}\", \"ENVIRONMENT\":\"${{ github.event.inputs.environment }}\"}"
-          elif [ "${{ github.event.inputs.action }}" == "destroy" ]; then
-            terraform destroy -auto-approve \
-          fi
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform/gcp-key.json
+          echo 'test'
