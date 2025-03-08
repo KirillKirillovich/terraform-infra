@@ -47,7 +47,7 @@ jobs:
               -var="env_vars={\"DATABASE\":\"${{ vars.DATABASE }}\", \"ENVIRONMENT\":\"${{ github.event.inputs.environment }}\"}"
           else
             echo "Running terraform destroy"
-            terraform destroy -auto-approve
+            terraform destroy -auto-approve -lock=false
           fi
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform/gcp-key.json
