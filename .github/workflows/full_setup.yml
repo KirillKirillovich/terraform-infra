@@ -34,6 +34,9 @@ jobs:
         run: |
           cd project-infra/envs/${{ github.event.inputs.environment }}
           terraform init
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform/gcp-key.json
+          
 
       - name: Terraform Apply
         run: |
