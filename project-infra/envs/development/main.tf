@@ -1,8 +1,3 @@
-provider "google" {
-  project = var.project_id
-  region  = var.region
-}
-
 module "cloud_run_main" {
   source = "../../modules/cloud_run"
   name = var.cloud_run_main_name
