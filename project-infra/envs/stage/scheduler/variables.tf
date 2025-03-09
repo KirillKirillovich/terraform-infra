@@ -30,13 +30,13 @@ variable "cron_scheduler_complete" {
   type        = string
 }
 
-variable "cron_on_scheduled_complete" {
+variable "cron_scheduled_health_data" {
   description = "cron"
   type        = string
 }
 
 variable "project_id" {
-  description = "environment"
+  description = "project id"
   type        = string
 }
 

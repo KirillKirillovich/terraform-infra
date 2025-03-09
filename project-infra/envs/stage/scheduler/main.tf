@@ -26,7 +26,7 @@ module "scheduled_health_data" {
   actions_endpoint = var.actions_endpoint
   region = var.region
   default_sa = var.default_sa
-  cron = var.cron_scheduler_complete
+  cron = var.cron_scheduled_health_data
   route = var.route.scheduled_health_data
   name = "on_scheduled_health_data"
 }
