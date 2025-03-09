@@ -5,7 +5,7 @@ module "scheduler_sync" {
   region = var.region
   default_sa = var.default_sa
   cron = var.cron_scheduler_sync
-  route = var.route.scheduled_sync
+  route = var.route_scheduled_sync
   name = "on_scheduled_sync"
 }
 
@@ -16,7 +16,7 @@ module "scheduled_complete" {
   region = var.region
   default_sa = var.default_sa
   cron = var.cron_scheduler_complete
-  route = var.route.scheduled_complete
+  route = var.route_scheduled_complete
   name = "on_scheduled_complete"
 }
 
@@ -27,6 +27,6 @@ module "scheduled_health_data" {
   region = var.region
   default_sa = var.default_sa
   cron = var.cron_scheduled_health_data
-  route = var.route.scheduled_health_data
+  route = var.route_scheduled_health_data
   name = "on_scheduled_health_data"
 }
