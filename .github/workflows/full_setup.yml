@@ -28,6 +28,7 @@ jobs:
           cd project-infra/envs/${{ github.event.inputs.environment }}
           echo '${{ secrets.GCP_SA_TERRAFORM }}' | tr -d '\r' > gcp-key.json
           export GOOGLE_APPLICATION_CREDENTIALS="$PWD/gcp-key.json"
+          cd cloud_run
           terraform init
           terraform apply -auto-approve \
             -var="main_image=${{ vars.MAIN_IMAGE }}" \
