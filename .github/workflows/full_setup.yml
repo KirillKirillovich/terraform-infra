@@ -1,4 +1,4 @@
-name: Full build/destroy
+name: Full build
 
 on:
   workflow_dispatch:
@@ -11,13 +11,6 @@ on:
           - development
           - production
           - stage
-      action:
-        description: 'Select the action (build or destroy)'
-        required: true
-        type: choice
-        options:
-          - build
-          - destroy
 
 jobs:
   deploy:
@@ -36,23 +29,11 @@ jobs:
           echo '${{ secrets.GCP_SA_TERRAFORM }}' | tr -d '\r' > gcp-key.json
           export GOOGLE_APPLICATION_CREDENTIALS="$PWD/gcp-key.json"
           terraform init
-
-          if [ "${{ github.event.inputs.action }}" == "build" ]; then
-            echo "Running terraform build"
-            terraform apply -auto-approve \
-              -var="main_image=${{ vars.MAIN_IMAGE }}" \
-              -var="actions_image=${{ vars.ACTION_IMAGE }}" \
-              -var="project_id=${{ vars.PROJECT_ID }}" \
-              -var="service_account=${{ vars.TERRAFORM_SA_NAME }}" \
-              -var="env_vars={\"DATABASE\":\"${{ vars.DATABASE }}\", \"ENVIRONMENT\":\"${{ github.event.inputs.environment }}\"}"
-          else
-            echo "Running terraform destroy"
-            terraform destroy -auto-approve -input=false
-              -var="main_image=${{ vars.MAIN_IMAGE }}" \
-              -var="actions_image=${{ vars.ACTION_IMAGE }}" \
-              -var="project_id=${{ vars.PROJECT_ID }}" \
-              -var="service_account=${{ vars.TERRAFORM_SA_NAME }}" \
-              -var="env_vars={\"DATABASE\":\"${{ vars.DATABASE }}\", \"ENVIRONMENT\":\"${{ github.event.inputs.environment }}\"}"
-          fi
+          terraform apply -auto-approve \
+            -var="main_image=${{ vars.MAIN_IMAGE }}" \
+            -var="actions_image=${{ vars.ACTION_IMAGE }}" \
+            -var="project_id=${{ vars.PROJECT_ID }}" \
+            -var="service_account=${{ vars.TERRAFORM_SA_NAME }}" \
+            -var="env_vars={\"DATABASE\":\"${{ vars.DATABASE }}\", \"ENVIRONMENT\":\"${{ github.event.inputs.environment }}\"}"
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform/gcp-key.json
