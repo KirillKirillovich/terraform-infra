@@ -22,3 +22,8 @@ variable "env_vars" {
   description = "env vars"
   type        = map(string)
 }
+
+variable "project_id" {
+  description = "project id"
+  type        = string
+}
