@@ -2,6 +2,7 @@
 resource "google_cloud_run_service" "this" {
   name     = var.name
   location = var.region
+  project = var.project_id
 
     template {
     spec {
@@ -35,4 +36,18 @@ resource "google_cloud_run_service" "this" {
     percent         = 100
     latest_revision = true
   }
+}
+
+
+resource "google_cloud_run_service_iam_policy" "public_access" {
+  location = google_cloud_run_service.this.location
+  service  = google_cloud_run_service.this.name
+  project = google_cloud_run_service.this.project
+
+  policy_data = jsonencode({
+    bindings = [{
+      role    = "roles/run.invoker"
+      members = ["allUsers"]
+    }]
+  })
 }
