@@ -1,7 +1,7 @@
 module "scheduler_sync" {
   source = "../../../modules/scheduler"
   environment = var.environment
-  actions_endpoint = var.actions_endpoint
+  actions_endpoint = data.terraform_remote_state.cloud_run_action_url.outputs.cloud_run_action_url
   region = var.region
   default_sa = var.default_sa
   cron = var.cron_scheduler_sync
@@ -12,7 +12,7 @@ module "scheduler_sync" {
 module "scheduled_complete" {
   source = "../../../modules/scheduler"
   environment = var.environment
-  actions_endpoint = var.actions_endpoint
+  actions_endpoint = data.terraform_remote_state.cloud_run_action_url.outputs.cloud_run_action_url
   region = var.region
   default_sa = var.default_sa
   cron = var.cron_scheduler_complete
@@ -23,7 +23,7 @@ module "scheduled_complete" {
 module "scheduled_health_data" {
   source = "../../../modules/scheduler"
   environment = var.environment
-  actions_endpoint = var.actions_endpoint
+  actions_endpoint = data.terraform_remote_state.cloud_run_action_url.outputs.cloud_run_action_url
   region = var.region
   default_sa = var.default_sa
   cron = var.cron_scheduled_health_data

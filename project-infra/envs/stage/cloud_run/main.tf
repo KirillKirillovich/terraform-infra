@@ -17,3 +17,8 @@ module "cloud_run_action" {
   service_account = var.service_account
   project_id = var.project_id
 }
+
+output "cloud_run_action_url" {
+  value       = module.cloud_run_action.cloud_run_url
+  description = "cloud run url form module"
+}

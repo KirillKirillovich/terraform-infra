@@ -1,3 +1,9 @@
 project-infra/envs/*/.terraform/
+project-infra/envs/*/*/.terraform/
 
 project-infra/envs/*/.terraform.lock.hcl
+
+project-infra/envs/*/*/.terraform.lock.hcl
+
+
+*.tfvars
