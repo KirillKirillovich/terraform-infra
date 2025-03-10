@@ -6,7 +6,7 @@ variable "project_id" {
 variable "env" {
   description = "environment"
   type        = string
-  default = "development"
+  default = "stage"
 }
 
 variable "region" {
@@ -18,13 +18,13 @@ variable "region" {
 variable "cloud_run_main_name" {
   description = "main cloud run name"
   type        = string
-  default     = "main-nginx-image-development"
+  default     = "main-nginx-image-stage"
 }
 
 variable "cloud_run_actions_name" {
   description = "actions cloud run name"
   type        = string
-  default     = "actions-nginx-image-development"
+  default     = "actions-nginx-image-stage"
 }
 
 variable "main_image" {
@@ -45,8 +45,5 @@ variable "service_account" {
 variable "env_vars" {
   description = "List of env vars"
   type        = map(string)
-  default = {
-    "DATABASE"   = "development"
-    "ENVIRONMENT" = "development"
-  }
+  default = {}
 }

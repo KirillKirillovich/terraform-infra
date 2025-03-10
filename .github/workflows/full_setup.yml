@@ -28,6 +28,7 @@ jobs:
           cd project-infra/envs/${{ github.event.inputs.environment }}
           echo '${{ secrets.GCP_SA_TERRAFORM }}' | tr -d '\r' > gcp-key.json
           export GOOGLE_APPLICATION_CREDENTIALS="$PWD/gcp-key.json"
+          cd cloud_run
           terraform init
           terraform apply -auto-approve \
             -var="main_image=${{ vars.MAIN_IMAGE }}" \
@@ -35,5 +36,13 @@ jobs:
             -var="project_id=${{ vars.PROJECT_ID }}" \
             -var="service_account=${{ vars.TERRAFORM_SA_NAME }}" \
             -var="env_vars={\"DATABASE\":\"${{ vars.DATABASE }}\", \"ENVIRONMENT\":\"${{ github.event.inputs.environment }}\"}"
+          cd ../scheduler
+          terraform init
+          terraform apply -auto-approve \
+            -var="default_sa=${{ vars.DEFAULT_SA }}" \
+            -var="cron_scheduler_sync=0 4-21 * * *" \
+            -var="cron_scheduler_complete=0 3 * * *" \
+            -var="cron_scheduled_health_data=25,55 * * * *" \
+            -var="project_id=${{ vars.PROJECT_ID }}"
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform/gcp-key.json
