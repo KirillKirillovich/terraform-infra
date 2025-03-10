@@ -39,7 +39,6 @@ jobs:
           cd ../scheduler
           terraform init
           terraform apply -auto-approve \
-            -var="actions_endpoint=https://actions-nginx-image-stage-588279185781.us-central1.run.app" \
             -var="default_sa=${{ vars.DEFAULT_SA }}" \
             -var="cron_scheduler_sync=0 4-21 * * *" \
             -var="cron_scheduler_complete=0 3 * * *" \
