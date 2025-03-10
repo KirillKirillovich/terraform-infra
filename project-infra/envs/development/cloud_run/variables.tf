@@ -45,8 +45,5 @@ variable "service_account" {
 variable "env_vars" {
   description = "List of env vars"
   type        = map(string)
-  default = {
-    "DATABASE"   = "development"
-    "ENVIRONMENT" = "development"
-  }
+  default = {}
 }
