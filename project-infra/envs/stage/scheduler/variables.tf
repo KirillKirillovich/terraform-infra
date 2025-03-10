@@ -10,11 +10,6 @@ variable "region" {
   default = "us-central1"
 }
 
-variable "actions_endpoint" {
-  description = "scheduled_sync"
-  type        = string
-}
-
 variable "default_sa" {
   description = "default sa"
   type        = string
