@@ -44,5 +44,13 @@ jobs:
             -var="cron_scheduler_complete=0 3 * * *" \
             -var="cron_scheduled_health_data=25,55 * * * *" \
             -var="project_id=${{ vars.PROJECT_ID }}"
+          cd ../eventarc
+          terraform init
+          terraform apply -auto-approve \
+            -var="location=nam5" \
+            -var="cloud_run_region=us-central1" \
+            -var="service_account=${{ vars.DEFAULT_SA }}" \
+            -var="project_id=${{ vars.PROJECT_ID }}" \
+            -var="database=${{ vars.DATABASE }}"
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform/gcp-key.json

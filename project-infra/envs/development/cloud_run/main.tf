@@ -20,5 +20,10 @@ module "cloud_run_action" {
 
 output "cloud_run_action_url" {
   value       = module.cloud_run_action.cloud_run_url
-  description = "cloud run url form module"
+  description = "cloud run url from module"
+}
+
+output "cloud_run_action_name" {
+  value       = module.cloud_run_action.cloud_run_name
+  description = "cloud run name from module"
 }
