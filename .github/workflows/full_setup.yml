@@ -52,5 +52,10 @@ jobs:
             -var="service_account=${{ vars.DEFAULT_SA }}" \
             -var="project_id=${{ vars.PROJECT_ID }}" \
             -var="database=${{ vars.DATABASE }}"
+          cd ../bucket
+          terraform init
+          terraform apply -auto-approve \
+            -var="project_id=${{ vars.PROJECT_ID }}" \
+            -var="region=us-central1""
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/terraform/gcp-key.json
